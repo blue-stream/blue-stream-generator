@@ -2,16 +2,18 @@
   "name": "blue-stream-project-generator",
   "version": "0.0.1",
   "description": "Blue Stream project template generator",
-  "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "tsc && node dist/index.js"
   },
   "author": "Ron Borysovski",
   "license": "ISC",
   "dependencies": {
     "inquirer": "^6.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/inquirer": "0.0.42",
+    "typescript": "^2.9.2"
+  },
   "bin": {
     "generate": "./index.js"
   }
