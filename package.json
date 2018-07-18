@@ -8,10 +8,16 @@
   "author": "Ron Borysovski",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^6.0.0"
+    "chalk": "^2.4.1",
+    "figlet": "^1.2.0",
+    "inquirer": "^6.0.0",
+    "nodegit": "^0.22.2",
+    "rimraf": "^2.6.2"
   },
   "devDependencies": {
     "@types/inquirer": "0.0.42",
+    "@types/nodegit": "^0.22.3",
+    "@types/rimraf": "^2.0.2",
     "typescript": "^2.9.2"
   },
   "bin": {
