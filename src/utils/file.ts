@@ -31,4 +31,19 @@ export class FileUtil {
             }
         })
     }
+
+    static deleteDirectoryRecursive(path: string) {
+        if (fs.existsSync(path)) {
+            fs.readdirSync(path).forEach((file: string, index: number) => {
+                const currentPath = `${path}/${file}`;
+                if (fs.lstatSync(currentPath).isDirectory()) {
+                    FileUtil.deleteDirectoryRecursive(currentPath);
+                } else {
+                    fs.unlinkSync(currentPath);
+                }
+            });
+
+            fs.rmdirSync(path);
+        }
+    }
 }
