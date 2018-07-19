@@ -40,7 +40,7 @@ export class GitService {
     }
 
     static async getTemplates() {
-        const localRepository = await Git.Repository.init(`${CURRENT_DIR}/tmp`, 1);
+        const localRepository = await Git.Repository.init(config.temporaryDirectoryPath, 1);
         const remoteRepository = await Git.Remote.create(localRepository, 'origin', config.git.repo_url);
 
         await remoteRepository.connect(Git.Enums.DIRECTION.FETCH, {
@@ -57,24 +57,25 @@ export class GitService {
 
         const templates: string[] = references
             .filter((branch: Git.Reference) => {
-                return /.+\/refs\/heads\/template-/.test(branch.name());
+                return /.*\/?refs\/heads\/template-/.test(branch.name());
             })
             .map((branch: Git.Reference) => {
-                return branch.name().replace(/.+\/origin\/template-/, '');
+                return branch.name().replace(/.*\/?refs\/heads\/template-/, '');
             });
-
-        FileUtil.deleteDirectoryRecursive(`${CURRENT_DIR}/tmp`);
+            
+        FileUtil.deleteDirectoryRecursive(config.temporaryDirectoryPath);
 
         return templates;
     }
 
     /**
-     * 
-     * @param branch - Branch to clone
-     * @param destinationPath - Path to clone repository 
+     * Clone a specific branch to workspace.
+     * @param branch {string} Branch to clone
+     * @param destinationPath {string} Path to clone repository 
+     * @returns Promise of the created Repository
      */
     static async cloneBranch(branch: string, destinationPath: string) {
-        return Git.Clone.clone(config.git.repo_url, `${CURRENT_DIR}/tmp`, {
+        return Git.Clone.clone(config.git.repo_url, destinationPath, {
             checkoutBranch: branch,
             fetchOpts: {
                 callbacks: {
