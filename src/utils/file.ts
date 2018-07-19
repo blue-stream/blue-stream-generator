@@ -4,6 +4,30 @@ import { StringUtil } from './string';
 const CURRENT_DIR = process.cwd();
 
 export class FileUtil {
+
+    /**
+     * Copy directory and its contents
+     * @param sourcePath Source directory path
+     * @param destinationPath Destination path
+     */
+    static copyDirectoryContent(sourcePath: string, destinationPath: string) {
+        const directoryContent: string[] = fs.readdirSync(sourcePath);
+
+        directoryContent.forEach((file: string) => {
+            const filePath = `${sourcePath}/${file}`;
+            const stats = fs.statSync(filePath);
+
+            if (stats.isFile()) {
+                const fileContent: string = fs.readFileSync(filePath, 'utf8');
+                const writePath = `${CURRENT_DIR}/${destinationPath}/${file}`;
+                fs.writeFileSync(writePath, fileContent, 'utf8');
+            } else if (stats.isDirectory()) {
+                fs.mkdirSync(`${CURRENT_DIR}/${destinationPath}/${file}`);
+                this.copyDirectoryContent(`${sourcePath}/${file}`, `${destinationPath}/${file}`);
+            }
+        });
+    }
+
     static createDirectoryContents(templatePath: string, projectPath: string, mainFeatureName: string) {
         const filesToCreate: string[] = fs.readdirSync(templatePath);
 
