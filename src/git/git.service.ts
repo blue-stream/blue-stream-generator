@@ -1,46 +1,21 @@
-import { config } from '../config';
 import * as Git from 'nodegit';
-import * as rimraf from 'rimraf';
-import { FileUtil } from '../utils/file';
-
-const CURRENT_DIR = process.cwd();
-
-const cloneOptions: Git.CloneOptions = {
-    fetchOpts: {
-        callbacks: {
-            credentials: () => {
-                return Git.Cred
-                    .userpassPlaintextNew(
-                        config.git.credentials.username,
-                        config.git.credentials.password
-                    );
-            }
-        }
-    }
-}
+import { config } from '../config';
+import { remove } from 'fs-extra';
 
 export class GitService {
-    private static repository: Git.Repository;
 
-    static async initializeRepository() {
-        this.repository = await Git.Clone.clone(config.git.repo_url, `${CURRENT_DIR}/tmp`, cloneOptions);
-    }
+    /**
+     * Fetch templates from git repository
+     * All templates are git branches with prefix "template-"
+     * @returns Promise of string array containing template names
+     * @example 
+     * //Returns 
+     * ['main', 'with-db', 'with-ci']
+     */
+    static async getTemplates(): Promise<string[]> {
+        const repoTempPath = `${config.rootDir}/repo-${config.generatorId}`;
 
-    static async getTemplateBranchNames() {
-        if (!this.repository) {
-            await this.initializeRepository();
-        }
-
-        const branches: string[] = await this.repository.getReferenceNames(Git.Reference.TYPE.LISTALL);
-        return branches
-            .filter((branch: string) => /\/origin\/template-/.test(branch))
-            .map((branch: string) => {
-                return branch.replace(/(.)+\/origin\/template-/, '');
-            });
-    }
-
-    static async getTemplates() {
-        const localRepository = await Git.Repository.init(config.temporaryDirectoryPath, 1);
+        const localRepository = await Git.Repository.init(repoTempPath, 1);
         const remoteRepository = await Git.Remote.create(localRepository, 'origin', config.git.repo_url);
 
         await remoteRepository.connect(Git.Enums.DIRECTION.FETCH, {
@@ -62,8 +37,8 @@ export class GitService {
             .map((branch: Git.Reference) => {
                 return branch.name().replace(/.*\/?refs\/heads\/template-/, '');
             });
-            
-        FileUtil.deleteDirectoryRecursive(config.temporaryDirectoryPath);
+
+        await remove(repoTempPath);
 
         return templates;
     }
