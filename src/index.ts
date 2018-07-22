@@ -1,20 +1,41 @@
 import { prompt, Answers } from 'inquirer';
-import { FileUtil } from './utils/file';
-import * as fs from 'fs';
-import { config } from './config';
-import { QUESTIONS } from './questions';
+import * as chalk from 'chalk';
+import * as Ora from 'ora';
+const figlet = require('figlet');
 
-const CURR_DIR = process.cwd();
+import { Generator } from './generator';
+import { Questions } from './questions';
 
-prompt(QUESTIONS)
-    .then((answers: Answers) => {
-        const projectChoice = answers['project-choice'];
-        const projectName = answers['project-name'];
-        const mainFeatureName = answers['main-feature-name'];
-        const templatePath = `${config.templatePath}/${projectChoice}`;
+(async () => {
+    console.log(
+        chalk.default.blue(
+            figlet.textSync('Generator', {
+                font: 'colossal'
+            })
+        ),
+        chalk.default.grey('by Ron Borysovski')
+    );
 
-        fs.mkdirSync(`${CURR_DIR}/${projectName}`);
+    const templates = new Ora({
+        text: 'Fetching templates from git repository',
+        color: 'blue'
+    }).start();
 
-        FileUtil.createDirectoryContents(templatePath, projectName, mainFeatureName);
-    });
+    const questions = await Questions.getQuestions();
 
+    templates.succeed();
+
+    const answers: Answers = await prompt(questions);
+    const template = answers['project-template'];
+    const name = answers['project-name'];
+    const featureName = answers['main-feature-name'];
+
+    const generator = new Ora({
+        text: 'Generating template files',
+        color: 'blue'
+    }).start();
+
+    await Generator.generateTemplate(template, name, featureName);
+
+    generator.succeed();
+})();
