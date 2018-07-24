@@ -1,5 +1,5 @@
 import * as Git from 'nodegit';
-import { config } from '../config';
+import { config } from './config';
 import { remove } from 'fs-extra';
 
 export class GitService {

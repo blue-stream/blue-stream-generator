@@ -1,4 +1,4 @@
-import { GitService } from './git/git.service';
+import { GitService } from './git.service';
 
 export class Questions {
     static async getQuestions() {
@@ -23,7 +23,7 @@ export class Questions {
             {
                 name: 'main-feature-name',
                 type: 'input',
-                message: 'Main feature name:',
+                message: `Main feature name:`,
                 validate: function (input: string) {
                     if (/^([A-Za-z\-\_\d])+$/.test(input)) return true;
                     else return 'Feature name may only include letters, numbers, underscores and hashes.';
