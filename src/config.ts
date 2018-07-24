@@ -1,6 +1,23 @@
 import * as uniqid from 'uniqid';
 
-export const config = {
+type Configuration = {
+    rootDir: string;
+    generatorId: string;
+    git: {
+        repo_url: string;
+        credentials: {
+            username: string;
+            password: string;
+        }
+    };
+    fileMapping: {
+        [index: string]: string;
+    };
+    ignoreFiles: string[];
+    ignoreDirectories: string[];
+}
+
+export const config: Configuration = {
     rootDir: process.cwd(),
     generatorId: uniqid(),
     git: {
@@ -9,5 +26,17 @@ export const config = {
             username: 'gitlab+deploy-token-7655',
             password: 'w_dMsb15gXyiPDgJgiyo'
         }
-    }
+    },
+    fileMapping: {
+        fileName: 'FEATURE_NAME',
+        camelCase: 'featureName',
+        PascalCase: 'FeatureName'
+    },
+    ignoreFiles: [
+
+    ],
+    ignoreDirectories: [
+        '.git',
+        'node_modules'
+    ]
 }
