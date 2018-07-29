@@ -1,6 +1,6 @@
 import { config } from './config';
-import { GitService } from './git.service';
 import { ReplacerUtil } from './util/replacer';
+import { GitExecuter } from './git';
 
 export class Generator {
     /**
@@ -24,7 +24,7 @@ export class Generator {
      * //       |___ server.ts
      */
     static async generateTemplate(template: string, name: string, featureName: string) {
-        await GitService.cloneBranch(`template-${template}`, `${config.rootDir}/${name}`);
+        await GitExecuter.cloneSpecificBranch(`template-${template}`, `${config.rootDir}/${name}`);
         ReplacerUtil.replaceFileNames(`${config.rootDir}/${name}`, featureName);
         ReplacerUtil.replaceFileContents(`${config.rootDir}/${name}`, featureName);
     }
