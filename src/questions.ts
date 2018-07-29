@@ -1,8 +1,8 @@
-import { GitService } from './git.service';
+import { GitExecuter } from './git';
 
 export class Questions {
     static async getQuestions() {
-        const templates: string[] = await GitService.getTemplates();
+        const templates: string[] = await GitExecuter.getBranchList();
 
         return [
             {
