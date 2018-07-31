@@ -1,0 +1,12 @@
+image: node:latest
+
+before_script:
+  - npm install --silent --progress=false
+
+cache:
+  paths:
+    - node_modules/
+
+tests:
+  script:
+    - npm run test
