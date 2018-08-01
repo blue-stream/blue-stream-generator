@@ -39,13 +39,29 @@ Answer questions about your project
 
 <span style="color:green">√</span> &nbsp; Fetching templates from git repository
 
-<span style="color:green">?</span> &nbsp; What project template would you like to generate? root
+<span style="color:green">?</span> &nbsp; What project template would you like to generate? `root`
 
-<span style="color:green">?</span> &nbsp; Project name: example-project
+<span style="color:green">?</span> &nbsp; Project name: `example-project`
 
-<span style="color:green">?</span> &nbsp; Main feature name: user
+<span style="color:green">?</span> &nbsp; Main feature name: `user`
 
 <span style="color:green">√</span> &nbsp; Generating template files
+
+Will generate the following structure
+
+```
+example-project
+   |____ src
+   |      |____ user
+   |      |       |____ user.router.ts
+   |      |       |____ user.router.ts
+   |      |       |____ user.controller.ts
+   :      :       :
+   |      |       |____ user.interface.ts
+   |     config.ts
+   |     server.ts
+   :      :     
+```
 
 ### Running a project
 
