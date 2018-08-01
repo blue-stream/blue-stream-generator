@@ -7,6 +7,11 @@ NOTE: this generator is based on template files located in [microservice-templat
 ### Overview
 Blue Generator is a tool to initialize a working microservice template project ready to run, test and deploy.
 
+### Requirements 
+`Git` should be installed before using this tool.
+
+This tool is using `git` to `fetch` template options from a remote repository and to `clone` the selected template.
+
 ### Getting Started
 To install the generator using https:
 ```
