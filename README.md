@@ -15,12 +15,12 @@ This tool is using `git` to `fetch` template options from a remote repository an
 ### Getting Started
 To install the generator using https:
 ```
-npm install -g https://gitlab.com/sapir-optimizations/blue-generator/microservice-generator
+npm install -g git+https://gitlab.com/sapir-optimizations/blue-generator/microservice-generator
 ```
 
 or using ssh:
 ```
-npm install -g git@gitlab.com:sapir-optimizations/blue-generator/microservice-generator.git
+npm install -g git+ssh://gitlab.com:sapir-optimizations/blue-generator/microservice-generator.git
 ```
 
 ### Generating a project

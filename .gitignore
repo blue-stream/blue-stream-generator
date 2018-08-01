@@ -1,6 +1,5 @@
 node_modules
 templates
-dist
 coverage
 .nyc_output
 .vscode
