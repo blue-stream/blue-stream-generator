@@ -4,6 +4,8 @@
   "description": "Blue Stream project template generator",
   "scripts": {
     "start": "tsc && node dist/index.js",
+    "postinstall": "tsc",
+    "build": "tsc",
     "test": "set NODE_ENV=test&& mocha -t 5000 -r ts-node/register \"src/**/*.spec.ts\" --exit",
     "test:coverage": "set NODE_ENV=test&& nyc npm test"
   },
@@ -57,6 +59,6 @@
     "typescript": "^2.9.2"
   },
   "bin": {
-    "generate": "./index.js"
+    "blue-generator": "./dist/index.js"
   }
 }

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { prompt, Answers } from 'inquirer';
 import * as chalk from 'chalk';
 import * as Ora from 'ora';
