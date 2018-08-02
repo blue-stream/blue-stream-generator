@@ -13,14 +13,18 @@ Blue Generator is a tool to initialize a working microservice template project r
 This tool is using `git` to `fetch` template options from a remote repository and to `clone` the selected template.
 
 ### Getting Started
-To install the generator using https:
+
+Before installing the generator, make sure you're authenticated with gitlab.com correctly.
+Otherwise, add your `publickey` to your GitLab account.
+
+To check your authentication use:
 ```
-npm install -g git+https://gitlab.com/sapir-optimizations/blue-generator/microservice-generator
+ssh -T git@gitlab.com
 ```
 
-or using ssh:
+To install the generator run:
 ```
-npm install -g git+ssh://gitlab.com:sapir-optimizations/blue-generator/microservice-generator.git
+npm install -g git+ssh://git@gitlab.com/sapir-optimizations/blue-generator/microservice-generator.git
 ```
 
 ### Generating a project
