@@ -1,7 +1,6 @@
 import { config } from './config';
 import { ReplacerUtil } from './util/replacer';
 import { GitExecuter } from './git';
-
 export class Generator {
     /**
      * Generate project template from specific template name
@@ -24,7 +23,7 @@ export class Generator {
      * //       |___ server.ts
      */
     static async generateTemplate(template: string, name: string, featureName: string) {
-        await GitExecuter.cloneSpecificBranch(`template-${template}`, `${config.rootDir}/${name}`);
+        await GitExecuter.cloneSpecificBranch(`33-allow-dynamic-templates`, `${config.rootDir}/${name}`);
         ReplacerUtil.replaceFileNames(`${config.rootDir}/${name}`, featureName);
         ReplacerUtil.replaceFileContents(`${config.rootDir}/${name}`, featureName);
     }
