@@ -1,5 +1,5 @@
 import { exec, execFile, ChildProcess } from 'child_process';
-import { config } from './config';
+import { config } from '../config';
 import { mkdirpSync } from 'fs-extra';
 import * as fs from 'fs';
 
@@ -15,28 +15,6 @@ export class GitExecuter {
                 }
             })
         });
-    }
-
-     /**
-     * Fetch templates from git repository
-     * All templates are git branches with prefix "template-"
-     * @returns Promise of string array containing template names
-     * @example 
-     * //Returns 
-     * ['main', 'with-db', 'with-ci']
-     */
-    static async getBranchList(): Promise<string[]> {
-        let result = await GitExecuter.asyncExec(`git ls-remote ${config.git.repo_url}`);
-        let branches: RegExpMatchArray | null = result.match(/refs\/.+/g);
-
-        if (branches) {
-            branches = branches.filter(branch => branch.includes('template-'))
-                .map(branch => branch.replace(/.+template-/, ''));
-
-            return branches;
-        }
-
-        return [];
     }
 
     /**

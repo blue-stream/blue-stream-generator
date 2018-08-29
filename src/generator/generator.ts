@@ -1,14 +1,13 @@
-import { config } from './config';
-import { ReplacerUtil } from './util/replacer';
-import { GitExecuter } from './git';
+import { config } from '../config';
+import { ReplacerUtil } from '../util/replacer/replacer';
+import { GitExecuter } from '../git/git';
 export class Generator {
     /**
-     * Generate project template from specific template name
-     * @param template Template name
+     * Generate project template from remote repository
      * @param name Project name
      * @param featureName Main feature name
      * @example
-     * generateTemplate('with-db', 'users-microservice', 'user')
+     * generateTemplate('users-microservice', 'user')
      * // Will generate a project from the templates repository in the following structure
      * // users-microservice/
      * //  |___ src/
@@ -22,7 +21,7 @@ export class Generator {
      * //       :
      * //       |___ server.ts
      */
-    static async generateTemplate(template: string, name: string, featureName: string) {
+    static async generateTemplate(name: string, featureName: string) {
         await GitExecuter.cloneSpecificBranch(`33-allow-dynamic-templates`, `${config.rootDir}/${name}`);
         ReplacerUtil.replaceFileNames(`${config.rootDir}/${name}`, featureName);
         ReplacerUtil.replaceFileContents(`${config.rootDir}/${name}`, featureName);
