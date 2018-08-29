@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { renameSync } from 'fs-extra';
-import { config } from '../config';
-import { StringUtil } from './string';
+import { config } from '../../config';
+import { StringUtil } from '../string/string';
 
 export class ReplacerUtil {
 
