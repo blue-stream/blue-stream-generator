@@ -34,6 +34,7 @@
   "author": "Ron Borysovski",
   "license": "ISC",
   "dependencies": {
+    "boxen": "^1.3.0",
     "chalk": "^2.4.1",
     "figlet": "^1.2.0",
     "fs-extra": "^7.0.0",

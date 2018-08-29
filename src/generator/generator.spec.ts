@@ -8,7 +8,7 @@ describe('Generator', () => {
         it('Should generate template', async () => {
             const path = `${process.cwd()}/generator`;
             expect(fs.existsSync(path)).to.be.false;
-            await Generator.generateTemplate('root', 'generator', 'feat');
+            await Generator.generateTemplate('generator', 'feat');
             expect(fs.existsSync(path)).to.be.true;
             await remove(path);
             expect(fs.existsSync(path)).to.be.false;

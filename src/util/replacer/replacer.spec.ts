@@ -1,7 +1,7 @@
 import * as mock from 'mock-fs';
 import * as fs from 'fs';
 import { expect } from 'chai';
-import { config } from '../config';
+import { config } from '../../config';
 import { ReplacerUtil } from './replacer';
 
 describe('ReplacerUtil', () => {
