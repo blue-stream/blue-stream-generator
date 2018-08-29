@@ -4,44 +4,65 @@ import { prompt, Answers } from 'inquirer';
 import * as chalk from 'chalk';
 import * as Ora from 'ora';
 const figlet = require('figlet');
+const boxen = require('boxen');
 
-import { Generator } from './generator';
+import { Generator } from './generator/generator';
 import { Questions } from './questions';
-import { Template } from './util/template';
+import { Template } from './util/template/template';
 import { config } from './config';
 
 (async () => {
-    // console.log(
-    //     chalk.default.blue(
-    //         figlet.textSync('Generator', {
-    //             font: 'colossal'
-    //         })
-    //     ),
-    //     chalk.default.grey('by Ron Borysovski')
-    // );
+    console.log(
+        chalk.default.blue(
+            boxen(
+                figlet.textSync('Generator', {
+                    font: 'Colossal'
+                }) + chalk.default.grey('by Ron Borysovski')
+                , { padding: 1 })
+        ),
+    );
+    console.log();
 
-    // const templates = new Ora({
-    //     text: 'Fetching templates from git repository',
-    //     color: 'blue'
-    // }).start();
+    const projectName = await Questions.getProjectName();
+    const mainFeature = await Questions.getMainFeatureName();
 
-    // const questions = await Questions.getQuestions();
+    const templateFetch = new Ora({
+        text: 'Fetching template',
+        color: 'blue'
+    }).start();
 
-    // templates.succeed();
+    await Generator.generateTemplate(projectName, mainFeature);
 
-    // const answers: Answers = await prompt(questions);
-    // const template = answers['project-template'];
-    // const name = answers['project-name'];
-    // const featureName = answers['main-feature-name'];
+    templateFetch.succeed();
 
-    // const generator = new Ora({
-    //     text: 'Generating template files',
-    //     color: 'blue'
-    // }).start();
+    const fetchFeatures = new Ora({
+        text: 'Fetching available features',
+        color: 'blue'
+    }).start();
 
-    // generator.succeed();
+    const projectPath = `${config.rootDir}/${projectName}`;
+    const optionalFeatures = await Template.fetchFeatures(projectPath);
 
-    // const features = Template.fetchFeatures(`${config.rootDir}/template`);
-    Template.removeFeature(`${config.rootDir}/template`, 'MongoDB');
-    // console.log(features);
+    fetchFeatures.succeed();
+
+    const features = await Questions.getSelectedFeatures(optionalFeatures);
+
+    const removedFeatures = optionalFeatures.filter(feature => !features.includes(feature));
+
+    const setFeatures = new Ora({
+        text: 'Applying features',
+        color: 'blue'
+    }).start();
+
+    Template.applyFeatures(projectPath, removedFeatures, optionalFeatures);
+
+    setFeatures.succeed();
+
+    console.log(chalk.default.green(
+        boxen('Template is ready!\nTo run your project:' + chalk.default.yellow(`
+            cd ${projectName}
+            npm install
+            npm start
+        `), {padding: 1})
+    ))
 })();
