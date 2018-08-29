@@ -1,5 +1,4 @@
 import * as inquirer from 'inquirer';
-import { isFunction } from 'util';
 
 type MockInquirerAnswer = { [key: string]: string };
 
