@@ -1,5 +1,5 @@
 import * as mock from 'mock-fs';
-import { config } from '../config';
+import { config } from '../../config';
 import { expect } from 'chai';
 import { Template } from './template';
 import * as fs from 'fs';
