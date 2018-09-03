@@ -8,41 +8,52 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const git_1 = require("./git");
+const inquirer_1 = require("inquirer");
 class Questions {
-    static getQuestions() {
+    static getProjectName() {
         return __awaiter(this, void 0, void 0, function* () {
-            const templates = yield git_1.GitExecuter.getBranchList();
-            return [
-                {
-                    name: 'project-template',
-                    type: 'list',
-                    message: 'What project template would you like to generate?',
-                    choices: templates
-                },
-                {
+            const answer = yield inquirer_1.prompt([{
                     name: 'project-name',
                     type: 'input',
-                    message: 'Project name:',
+                    message: 'Project name',
                     validate: function (input) {
                         if (/^([A-Za-z\-\_\d])+$/.test(input))
                             return true;
                         else
                             return 'Project name may only include letters, numbers, underscores and hashes.';
                     }
-                },
-                {
-                    name: 'main-feature-name',
+                }]);
+            return answer['project-name'];
+        });
+    }
+    static getMainFeatureName() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const answer = yield inquirer_1.prompt([{
+                    name: 'main-feature',
                     type: 'input',
-                    message: `Main feature name:`,
+                    message: 'Main feature name',
                     validate: function (input) {
                         if (/^([A-Za-z\-\_\d])+$/.test(input))
                             return true;
                         else
                             return 'Feature name may only include letters, numbers, underscores and hashes.';
                     }
-                }
-            ];
+                }]);
+            return answer['main-feature'];
+        });
+    }
+    static getSelectedFeatures(features) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const answer = yield inquirer_1.prompt([{
+                    type: 'checkbox',
+                    message: 'Select features to enable',
+                    name: 'selected-features',
+                    choices: features.map(feature => ({
+                        name: feature,
+                        checked: true
+                    })),
+                }]);
+            return answer['selected-features'];
         });
     }
 }

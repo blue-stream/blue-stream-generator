@@ -3,11 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.config = {
     rootDir: process.cwd(),
     git: {
-        repo_url: 'https://gitlab+deploy-token-7655:w_dMsb15gXyiPDgJgiyo@gitlab.com/sapir-optimizations/blue-generator/microservice-template.git',
-        credentials: {
-            username: 'gitlab+deploy-token-7655',
-            password: 'w_dMsb15gXyiPDgJgiyo'
-        }
+        repo_url: 'https://github.com/blue-stream/blue-stream-template',
     },
     fileMapping: {
         fileName: 'FEATURE_NAME',

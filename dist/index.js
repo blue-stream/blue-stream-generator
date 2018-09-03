@@ -9,31 +9,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const inquirer_1 = require("inquirer");
 const chalk = require("chalk");
 const Ora = require("ora");
 const figlet = require('figlet');
-const generator_1 = require("./generator");
+const boxen = require('boxen');
+const generator_1 = require("./generator/generator");
 const questions_1 = require("./questions");
+const template_1 = require("./util/template/template");
+const config_1 = require("./config");
 (() => __awaiter(this, void 0, void 0, function* () {
-    console.log(chalk.default.blue(figlet.textSync('Generator', {
-        font: 'colossal'
-    })), chalk.default.grey('by Ron Borysovski'));
-    const templates = new Ora({
-        text: 'Fetching templates from git repository',
+    console.log(chalk.default.blue(boxen(figlet.textSync('Generator', {
+        font: 'Colossal'
+    }) + chalk.default.grey('by Ron Borysovski'), { padding: 1 })));
+    console.log();
+    const projectName = yield questions_1.Questions.getProjectName();
+    const mainFeature = yield questions_1.Questions.getMainFeatureName();
+    const templateFetch = new Ora({
+        text: 'Fetching template',
         color: 'blue'
     }).start();
-    const questions = yield questions_1.Questions.getQuestions();
-    templates.succeed();
-    const answers = yield inquirer_1.prompt(questions);
-    const template = answers['project-template'];
-    const name = answers['project-name'];
-    const featureName = answers['main-feature-name'];
-    const generator = new Ora({
-        text: 'Generating template files',
+    yield generator_1.Generator.generateTemplate(projectName, mainFeature);
+    templateFetch.succeed();
+    const fetchFeatures = new Ora({
+        text: 'Fetching available features',
         color: 'blue'
     }).start();
-    yield generator_1.Generator.generateTemplate(template, name, featureName);
-    generator.succeed();
+    const projectPath = `${config_1.config.rootDir}/${projectName}`;
+    const optionalFeatures = yield template_1.Template.fetchFeatures(projectPath);
+    fetchFeatures.succeed();
+    const features = yield questions_1.Questions.getSelectedFeatures(optionalFeatures);
+    const removedFeatures = optionalFeatures.filter(feature => !features.includes(feature));
+    const setFeatures = new Ora({
+        text: 'Applying features',
+        color: 'blue'
+    }).start();
+    template_1.Template.applyFeatures(projectPath, removedFeatures, optionalFeatures);
+    setFeatures.succeed();
+    console.log(chalk.default.green(boxen('Template is ready!\nTo run your project:' + chalk.default.yellow(`
+            cd ${projectName}
+            npm install
+            npm start
+        `), { padding: 1 })));
 }))();
 //# sourceMappingURL=index.js.map
