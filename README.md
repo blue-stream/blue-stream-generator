@@ -12,19 +12,12 @@ Blue Generator is a tool to initialize a working microservice template project r
 
 This tool is using `git` to `fetch` template options from a remote repository and to `clone` the selected template.
 
-### Getting Started
-
-Before installing the generator, make sure you're authenticated with gitlab.com correctly.
-Otherwise, add your `publickey` to your GitLab account.
-
-To check your authentication use:
-```
-ssh -T git@gitlab.com
-```
+### Installation
 
 To install the generator run:
+
 ```
-npm install -g git+ssh://git@gitlab.com/sapir-optimizations/blue-generator/microservice-generator.git
+npm install --global https://github.com/blue-stream/blue-stream-generator
 ```
 
 ### Generating a project
@@ -36,8 +29,8 @@ blue-generator
 Answer questions about your project
 
 * Project name
-* Project template
 * Main feature name
+* Features to apply
 
 ### Example
 
@@ -50,6 +43,42 @@ Answer questions about your project
 <span style="color:green">?</span> &nbsp; Main feature name: `user`
 
 <span style="color:green">√</span> &nbsp; Generating template files
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                                    │
+│    .d8888b.                                             888                                        │
+│   d88P  Y88b                                            888                                        │
+│   888    888                                            888                                        │
+│   888         .d88b.  88888b.   .d88b.  888d888 8888b.  888888 .d88b.  888d888                     │
+│   888  88888 d8P  Y8b 888 "88b d8P  Y8b 888P"      "88b 888   d88""88b 888P"                       │
+│   888    888 88888888 888  888 88888888 888    .d888888 888   888  888 888                         │
+│   Y88b  d88P Y8b.     888  888 Y8b.     888    888  888 Y88b. Y88..88P 888                         │
+│    "Y8888P88  "Y8888  888  888  "Y8888  888    "Y888888  "Y888 "Y88P"  888                         │
+│                                                                                                    │
+│                                                                                                    │
+│                                                                                by Ron Borysovski   │
+│                                                                                                    │
+└────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+? Project name: example-project
+? Main feature name: user
+✔ Fetching template
+✔ Fetching available features
+? Select features to enable MongoDB, Error Handler, Authentication using JWT
+✔ Applying features
+┌────────────────────────────────────────┐
+│                                        │
+│   Template is ready!                   │
+│   To run your project:                 │
+│               cd example-project       │
+│               npm install              │
+│               npm start                │
+│                                        │
+│                                        │
+└────────────────────────────────────────┘
+```
+
 
 Will generate the following structure
 

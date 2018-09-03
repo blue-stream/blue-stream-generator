@@ -22,7 +22,7 @@ export class Generator {
      * //       |___ server.ts
      */
     static async generateTemplate(name: string, featureName: string) {
-        await GitExecuter.cloneSpecificBranch(`33-allow-dynamic-templates`, `${config.rootDir}/${name}`);
+        await GitExecuter.cloneSpecificBranch(`master`, `${config.rootDir}/${name}`);
         ReplacerUtil.replaceFileNames(`${config.rootDir}/${name}`, featureName);
         ReplacerUtil.replaceFileContents(`${config.rootDir}/${name}`, featureName);
     }

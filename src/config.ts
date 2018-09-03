@@ -2,10 +2,6 @@ type Configuration = {
     rootDir: string;
     git: {
         repo_url: string;
-        credentials: {
-            username: string;
-            password: string;
-        }
     };
     fileMapping: {
         [index: string]: string;
@@ -17,11 +13,7 @@ type Configuration = {
 export const config: Configuration = {
     rootDir: process.cwd(),
     git: {
-        repo_url: 'https://gitlab+deploy-token-7655:w_dMsb15gXyiPDgJgiyo@gitlab.com/sapir-optimizations/blue-generator/microservice-template.git',
-        credentials: {
-            username: 'gitlab+deploy-token-7655',
-            password: 'w_dMsb15gXyiPDgJgiyo'
-        }
+        repo_url: 'https://github.com/blue-stream/blue-stream-template',
     },
     fileMapping: {
         fileName: 'FEATURE_NAME',

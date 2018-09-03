@@ -9,7 +9,7 @@ describe('GitService', () => {
     describe('#cloneBranch()', () => {
         it('Should clone branch into work-space', async () => {
             const path = `${process.cwd()}/test_clone`;
-            await GitExecuter.cloneSpecificBranch('template-root', path);
+            await GitExecuter.cloneSpecificBranch('master', path);
             expect(fs.existsSync(path)).to.be.true;
             await remove(path);
         });
