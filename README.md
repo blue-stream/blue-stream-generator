@@ -2,7 +2,7 @@
 
 ![build status](https://gitlab.com/sapir-optimizations/blue-generator/microservice-generator/badges/master/build.svg)
 
-NOTE: this generator is based on template files located in [microservice-template](https://gitlab.com/sapir-optimizations/blue-generator/microservice-template) repository on gitlab.
+NOTE: this generator is based on template files located in [microservice-template](https://github.com/blue-stream/blue-stream-template) repository on github.
 
 ### Overview
 Blue Generator is a tool to initialize a working microservice template project ready to run, test and deploy.
