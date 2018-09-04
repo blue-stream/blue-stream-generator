@@ -14,11 +14,9 @@ import { config } from './config';
 (async () => {
     console.log(
         chalk.default.blue(
-            boxen(
-                figlet.textSync('Generator', {
-                    font: 'Colossal'
-                }) + chalk.default.grey('by Ron Borysovski')
-                , { padding: 1 })
+            figlet.textSync('Generator', {
+                font: 'Colossal'
+            }) + chalk.default.grey('by Ron Borysovski')
         ),
     );
     console.log();
@@ -63,6 +61,6 @@ import { config } from './config';
             cd ${projectName}
             npm install
             npm start
-        `), {padding: 1})
+        `), { padding: 1 })
     ))
 })();

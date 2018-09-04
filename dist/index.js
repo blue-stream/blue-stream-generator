@@ -18,9 +18,9 @@ const questions_1 = require("./questions");
 const template_1 = require("./util/template/template");
 const config_1 = require("./config");
 (() => __awaiter(this, void 0, void 0, function* () {
-    console.log(chalk.default.blue(boxen(figlet.textSync('Generator', {
+    console.log(chalk.default.blue(figlet.textSync('Generator', {
         font: 'Colossal'
-    }) + chalk.default.grey('by Ron Borysovski'), { padding: 1 })));
+    }) + chalk.default.grey('by Ron Borysovski')));
     console.log();
     const projectName = yield questions_1.Questions.getProjectName();
     const mainFeature = yield questions_1.Questions.getMainFeatureName();
