@@ -1,6 +1,6 @@
 # Blue Generator
 
-![build status](https://gitlab.com/sapir-optimizations/blue-generator/microservice-generator/badges/master/build.svg)
+![build status](https://travis-ci.org/blue-stream/blue-stream-generator.svg?branch=master)
 
 NOTE: this generator is based on template files located in [microservice-template](https://github.com/blue-stream/blue-stream-template) repository on github.
 
