@@ -23,11 +23,11 @@ class Template {
         return [...new Set(features)];
     }
     static getFeatureRegex(feature) {
-        const featurePattern = `\\/\\/\\s*<${feature}>([\\s\\S]*?)\\/\\/\\s*<\\/${feature}>`;
+        const featurePattern = `\\/\\/\\s*<${feature}>\\s?([\\s\\S]*?)\\/\\/\\s*<\\/${feature}>\\s*\\r?\\n?`;
         return new RegExp(featurePattern, 'mg');
     }
     static getInvertedFeatureRegex(feature) {
-        const invertedFeaturePattern = `\\/\\/\\s*!<${feature}>([\\s\\S]*?)\\/\\/\\s*!<\\/${feature}>`;
+        const invertedFeaturePattern = `\\/\\/\\s*!<${feature}>\\s?([\\s\\S]*?)\\/\\/\\s*!<\\/${feature}>\\s*\\r?\\n?`;
         return new RegExp(invertedFeaturePattern, 'mg');
     }
     static applyFeatures(path, featuresToDisable, allFeatures) {
