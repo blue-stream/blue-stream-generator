@@ -5,7 +5,7 @@ import { Template } from './template';
 import * as fs from 'fs';
 
 describe('Template', function () {
-    before(function (done: MochaDone) {
+    beforeEach(function (done: MochaDone) {
         mock({
             [`${process.cwd()}/tests`]: {
                 'dirWithFeatures': {
@@ -40,7 +40,7 @@ describe('Template', function () {
         done();
     });
 
-    after(function (done: MochaDone) {
+    afterEach(function (done: MochaDone) {
         mock.restore();
         done();
     })
@@ -84,13 +84,27 @@ describe('Template', function () {
             done();
         });
 
-        it('Should apply !<feature> when feature is disabled', function(done:MochaDone) {
+        it('Should apply !<feature> when feature is disabled', function (done: MochaDone) {
             Template.applyFeatures(`${process.cwd()}/tests`, [], ['Test', 'Feature']);
 
             const fileContent = fs.readFileSync(`${process.cwd()}/tests/dirWithFeatures/FileWithFeature.ts`, 'utf8');
             expect(fileContent).to.not.match(/console\.log\('hello'\)/mg);
 
             done();
+        });
+
+        it('Should remove wrappers empty lines', function (done: MochaDone) {
+            Template.applyFeatures(`${process.cwd()}/tests`, [], ['Test', 'Feature']);
+
+            const fileContent = fs.readFileSync(`${process.cwd()}/tests/dirWithFeatures/FileWithFeature.ts`, 'utf8');
+            const lines = fileContent.split('\n');
+
+            expect(lines).to.exist;
+            expect(lines).to.be.an('array');
+            expect(lines).to.have.lengthOf(6);
+
+            done();
+
         })
     })
 })
