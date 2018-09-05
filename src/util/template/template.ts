@@ -26,12 +26,12 @@ export class Template {
 
 
     private static getFeatureRegex(feature: string): RegExp {
-        const featurePattern = `\\/\\/\\s*<${feature}>([\\s\\S]*?)\\/\\/\\s*<\\/${feature}>`;
+        const featurePattern = `\\/\\/\\s*<${feature}>\\s?([\\s\\S]*?)\\/\\/\\s*<\\/${feature}>\\s*\\r?\\n?`;
         return new RegExp(featurePattern, 'mg');
     }
 
     private static getInvertedFeatureRegex(feature: string): RegExp {
-        const invertedFeaturePattern = `\\/\\/\\s*!<${feature}>([\\s\\S]*?)\\/\\/\\s*!<\\/${feature}>`;
+        const invertedFeaturePattern = `\\/\\/\\s*!<${feature}>\\s?([\\s\\S]*?)\\/\\/\\s*!<\\/${feature}>\\s*\\r?\\n?`;
         return new RegExp(invertedFeaturePattern, 'mg');
     }
 
