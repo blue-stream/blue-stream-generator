@@ -17,7 +17,7 @@ describe('Generator', () => {
         it('Should generate template', () => __awaiter(this, void 0, void 0, function* () {
             const path = `${process.cwd()}/generator`;
             chai_1.expect(fs.existsSync(path)).to.be.false;
-            yield generator_1.Generator.generateTemplate('generator', 'feat');
+            yield generator_1.Generator.generateTemplate('master', 'generator', 'feat');
             chai_1.expect(fs.existsSync(path)).to.be.true;
             yield fs_extra_1.remove(path);
             chai_1.expect(fs.existsSync(path)).to.be.false;

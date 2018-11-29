@@ -31,9 +31,9 @@ class Generator {
      * //       :
      * //       |___ server.ts
      */
-    static generateTemplate(name, featureName) {
+    static generateTemplate(branch, name, featureName) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield git_1.GitExecuter.cloneSpecificBranch(`master`, `${config_1.config.rootDir}/${name}`);
+            yield git_1.GitExecuter.cloneSpecificBranch(branch, `${config_1.config.rootDir}/${name}`);
             replacer_1.ReplacerUtil.replaceFileNames(`${config_1.config.rootDir}/${name}`, featureName);
             replacer_1.ReplacerUtil.replaceFileContents(`${config_1.config.rootDir}/${name}`, featureName);
         });

@@ -56,6 +56,17 @@ class Questions {
             return answer['selected-features'];
         });
     }
+    static getTemplateBranch(branches) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const answer = yield inquirer_1.prompt([{
+                    type: 'list',
+                    message: 'Use branch',
+                    name: 'branch-name',
+                    choices: branches,
+                }]);
+            return answer['branch-name'];
+        });
+    }
 }
 exports.Questions = Questions;
 //# sourceMappingURL=questions.js.map

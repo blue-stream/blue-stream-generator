@@ -5,7 +5,7 @@ const chai_1 = require("chai");
 const template_1 = require("./template");
 const fs = require("fs");
 describe('Template', function () {
-    before(function (done) {
+    beforeEach(function (done) {
         mock({
             [`${process.cwd()}/tests`]: {
                 'dirWithFeatures': {
@@ -39,7 +39,7 @@ describe('Template', function () {
         });
         done();
     });
-    after(function (done) {
+    afterEach(function (done) {
         mock.restore();
         done();
     });
@@ -76,6 +76,15 @@ describe('Template', function () {
             template_1.Template.applyFeatures(`${process.cwd()}/tests`, [], ['Test', 'Feature']);
             const fileContent = fs.readFileSync(`${process.cwd()}/tests/dirWithFeatures/FileWithFeature.ts`, 'utf8');
             chai_1.expect(fileContent).to.not.match(/console\.log\('hello'\)/mg);
+            done();
+        });
+        it('Should remove wrappers empty lines', function (done) {
+            template_1.Template.applyFeatures(`${process.cwd()}/tests`, [], ['Test', 'Feature']);
+            const fileContent = fs.readFileSync(`${process.cwd()}/tests/dirWithFeatures/FileWithFeature.ts`, 'utf8');
+            const lines = fileContent.split('\n');
+            chai_1.expect(lines).to.exist;
+            chai_1.expect(lines).to.be.an('array');
+            chai_1.expect(lines).to.have.lengthOf(6);
             done();
         });
     });

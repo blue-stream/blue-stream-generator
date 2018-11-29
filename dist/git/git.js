@@ -38,6 +38,18 @@ class GitExecuter {
             yield GitExecuter.asyncExec(`git clone --single-branch -b ${branch} ${config_1.config.git.repo_url} ${destinationPath}/.`);
         });
     }
+    /**
+     * Get a list of branches from remote repository
+     * git ls-remote {remote}
+     * @param remote {string} Remote repository url
+     */
+    static getBranchList(remote) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield GitExecuter.asyncExec(`git ls-remote ${remote}`);
+            const branches = result.match(/(?<=refs\/heads\/).*/g);
+            return branches ? branches.map(branch => branch.toString()) : [];
+        });
+    }
 }
 exports.GitExecuter = GitExecuter;
 //# sourceMappingURL=git.js.map

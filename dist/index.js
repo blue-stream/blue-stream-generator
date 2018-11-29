@@ -11,12 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk = require("chalk");
 const Ora = require("ora");
-const figlet = require('figlet');
-const boxen = require('boxen');
+const config_1 = require("./config");
 const generator_1 = require("./generator/generator");
+const git_1 = require("./git/git");
 const questions_1 = require("./questions");
 const template_1 = require("./util/template/template");
-const config_1 = require("./config");
+const figlet = require('figlet');
+const boxen = require('boxen');
 (() => __awaiter(this, void 0, void 0, function* () {
     console.log(chalk.default.blue(figlet.textSync('Generator', {
         font: 'Colossal'
@@ -24,11 +25,13 @@ const config_1 = require("./config");
     console.log();
     const projectName = yield questions_1.Questions.getProjectName();
     const mainFeature = yield questions_1.Questions.getMainFeatureName();
+    const branches = yield git_1.GitExecuter.getBranchList(config_1.config.git.repo_url);
+    const branchName = yield questions_1.Questions.getTemplateBranch(branches);
     const templateFetch = new Ora({
         text: 'Fetching template',
         color: 'blue'
     }).start();
-    yield generator_1.Generator.generateTemplate(projectName, mainFeature);
+    yield generator_1.Generator.generateTemplate(branchName, projectName, mainFeature);
     templateFetch.succeed();
     const fetchFeatures = new Ora({
         text: 'Fetching available features',
