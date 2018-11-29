@@ -43,4 +43,15 @@ export class Questions {
 
         return answer['selected-features'];
     }
+
+    static async getTemplateBranch(branches: string[]): Promise<string> {
+        const answer: Answers = await prompt([{
+            type: 'list',
+            message: 'Use branch',
+            name: 'branch-name',
+            choices: branches,
+        }])
+
+        return answer['branch-name'];
+    }
 }

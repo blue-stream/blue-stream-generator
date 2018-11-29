@@ -29,4 +29,16 @@ export class GitExecuter {
 
         await GitExecuter.asyncExec(`git clone --single-branch -b ${branch} ${config.git.repo_url} ${destinationPath}/.`);
     }
+
+    /**
+     * Get a list of branches from remote repository
+     * git ls-remote {remote}
+     * @param remote {string} Remote repository url
+     */
+    static async getBranchList(remote: string): Promise<string[]> {
+        const result = await GitExecuter.asyncExec(`git ls-remote ${remote}`);
+        const branches = result.match(/(?<=refs\/heads\/).*/g);
+
+        return branches ? branches.map(branch => branch.toString()) : [];
+    }
 }

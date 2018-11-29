@@ -21,8 +21,8 @@ export class Generator {
      * //       :
      * //       |___ server.ts
      */
-    static async generateTemplate(name: string, featureName: string) {
-        await GitExecuter.cloneSpecificBranch(`master`, `${config.rootDir}/${name}`);
+    static async generateTemplate(branch:string, name: string, featureName: string) {
+        await GitExecuter.cloneSpecificBranch(branch, `${config.rootDir}/${name}`);
         ReplacerUtil.replaceFileNames(`${config.rootDir}/${name}`, featureName);
         ReplacerUtil.replaceFileContents(`${config.rootDir}/${name}`, featureName);
     }

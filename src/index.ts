@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-import { prompt, Answers } from 'inquirer';
 import * as chalk from 'chalk';
 import * as Ora from 'ora';
+import { config } from './config';
+import { Generator } from './generator/generator';
+import { GitExecuter } from './git/git';
+import { Questions } from './questions';
+import { Template } from './util/template/template';
 const figlet = require('figlet');
 const boxen = require('boxen');
 
-import { Generator } from './generator/generator';
-import { Questions } from './questions';
-import { Template } from './util/template/template';
-import { config } from './config';
 
 (async () => {
     console.log(
@@ -24,12 +24,16 @@ import { config } from './config';
     const projectName = await Questions.getProjectName();
     const mainFeature = await Questions.getMainFeatureName();
 
+    const branches = await GitExecuter.getBranchList(config.git.repo_url);
+
+    const branchName = await Questions.getTemplateBranch(branches);
+
     const templateFetch = new Ora({
         text: 'Fetching template',
         color: 'blue'
     }).start();
 
-    await Generator.generateTemplate(projectName, mainFeature);
+    await Generator.generateTemplate(branchName, projectName, mainFeature);
 
     templateFetch.succeed();
 

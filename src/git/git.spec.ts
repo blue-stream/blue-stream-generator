@@ -28,4 +28,14 @@ describe('GitService', () => {
             expect(hasError).to.be.true;
         })
     });
+
+    describe('#getBranchList', () => {
+        it('Should get branch list', async() => {
+            const branches = await GitExecuter.getBranchList(config.git.repo_url);
+
+            expect(branches).to.exist;
+            expect(branches).to.be.an('array');
+            expect(branches).to.contain('master');
+        });
+    })
 })
